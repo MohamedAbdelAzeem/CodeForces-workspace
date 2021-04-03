@@ -1,4 +1,4 @@
-
+//318A. Even Odds
 #include <iostream>
 #include <vector>
 #include <string>
@@ -6,19 +6,34 @@
 using namespace std;
 int main()
 {
-
+//Because of Time limitation, we should use mathematical relation between numbers and its position. 
 	long long   n;
 	long long   k;
 	cin >> n;
 	cin >> k;
-	if (k <= (n + 1) / 2)
+	
+	
+	long long  mid = 0;	
+	if (n % 2 == 0) 		//if n is an even number 
 	{
-		cout << k * 2 - 1;
+		mid = n / 2;  		//mid is in the middle  even numbers = odd numbers
+	}
+	else    			//else n is odd
+	{
+		mid = (n + 1) / 2;  	//odd numbers is 1 more than even numbers 
+					//Ex: 1 2 3 4 5 6 7 -> 1 3 5 7 - 2 4 6
+	}
+
+	if (k <= mid)
+	{
+		cout << k * 2 - 1;	//odd numbers start indexing from  1 2 3 4  . . etc. 
+					//so position relation is vaild 2*k-1
 	}
 	else
 	{
-		cout << 2 * (k - (n + 1) / 2);
-
-		return 0;
+		cout << 2 * (k - mid);	// even numbers start indexing from mid+1 mid+2 mid+3 ... 
+					// so we need to subtract mid to make indexing 1 2 3 . . .
+					//and using even numbers relation 2 * k 
 	}
+	return 0;
 }
