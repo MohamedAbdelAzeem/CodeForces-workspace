@@ -1,0 +1,50 @@
+
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+int main()
+{
+ 
+	int arr[3];
+	int dis1 = 0;
+	int dis2 =0;
+	int dis3 = 0 ;
+	vector<int> vect(3);
+	for (int i = 0; i < 3; i++)
+	{
+		cin >> arr[i];
+	}
+
+
+	vect[0] = abs(arr[0] - arr[1]);
+	vect[1] = abs(arr[0] - arr[2]);
+	vect[2] = abs(arr[1] - arr[2]);
+
+	int min1 = 100 ;
+	int index = 0;
+	for (int i = 0; i < 3; i++)
+	{
+		if (vect[i] < min1)
+		{
+			min1 = vect[i];
+			index = i;
+			
+		}
+	}
+	vect.erase(vect.begin() + index );
+
+	int min2 = 100;
+	for (int i = 0; i < 2; i++)
+	{
+		if (vect[i] < min2 && min2 != min1)
+		{
+			min2 = vect[i];
+		}
+	}
+	cout << min1 + min2;
+
+
+	return 0;
+}
