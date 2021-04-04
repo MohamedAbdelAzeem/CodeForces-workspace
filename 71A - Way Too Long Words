@@ -1,0 +1,44 @@
+
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+int main()
+{
+
+	int n; 
+	string input_str;
+	cin >> n;
+	vector<string> vect;
+	vector<string> output;
+	for (int i = 0; i < n; i++)
+	{
+		cin >> input_str;
+		vect.push_back(input_str);
+	}
+
+
+	for (int i = 0; i < n; i++)
+	{
+		int size = vect[i].size();
+		if (size> 10 )
+		{
+			output.push_back("");
+			output[i] = vect[i][0];
+			output[i] += to_string(size - 2);
+			output[i] += vect[i][size - 1];
+
+		}
+		else
+		{
+			output.push_back(vect[i]);
+		}
+	}
+
+	for (int i = 0; i < n; i++)
+	{
+		cout << output[i]<<endl;
+	}
+	return 0;
+}
