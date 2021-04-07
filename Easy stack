@@ -1,0 +1,68 @@
+
+	#define _CRT_SECURE_NO_WARNINGS
+	#include <iostream>
+	#include <vector>
+	#include <string>
+	#include <queue>
+	#include <stack>
+
+
+	#define PUSH 1
+	#define POP  2
+	#define PRINT 3
+
+	using namespace std;
+	int main()
+	{
+
+	#ifndef ONLINE_JUDGE
+		freopen("input.in", "r", stdin);
+		freopen("output.txt", "w", stdout);
+
+	#endif // !ONLINE_JUDGE
+
+		std::ios_base::sync_with_stdio(0);
+		cin.tie(NULL);
+		cout.tie(NULL);
+
+
+		long long  t ;
+		cin >> t;
+
+		int in = 0;
+		int k = 0;
+		stack<int> my_stack;
+		for (int i = 0; i < t; i++)
+		{
+			cin >> in;
+			switch (in)
+			{
+			case PUSH:
+			
+				cin >> k;
+				my_stack.push(k);
+				break;
+
+			case POP:
+				if (!my_stack.empty())
+				{
+					my_stack.pop();
+				}
+				break;
+			case PRINT :
+				if (!my_stack.empty())
+				{
+					cout << my_stack.top() << "\n"; //using endl will cause time limit ^^
+				}
+				else
+				{
+					cout << "Empty!\n";
+				}
+			
+				break;
+			}
+		}
+	
+
+		return 0;
+	}
