@@ -1,0 +1,94 @@
+
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <queue>
+#include <stack>
+
+
+using namespace std;	
+
+
+
+int main()
+{
+
+#ifndef ONLINE_JUDGE
+	freopen("input.in", "r", stdin);
+	freopen("output.txt", "w", stdout);
+
+#endif // !ONLINE_JUDGE
+
+	std::ios_base::sync_with_stdio(0);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int n = 0;
+	while (cin >> n && n)
+	{
+		deque<int> my_dequeue;
+		vector<int> discarded;
+		for (int i = 1; i <= n; i++)
+		{
+			my_dequeue.push_back(i);
+		}
+
+		while (my_dequeue.size() > 1)
+		{
+			discarded.push_back(my_dequeue.front());
+			my_dequeue.pop_front();
+			int k = 0;
+			k = my_dequeue.front();
+			my_dequeue.pop_front();
+			my_dequeue.push_back(k);
+		}
+		if (n == 1)
+		{
+			cout << "Discarded cards:";
+		}
+		else
+		{
+			cout << "Discarded cards: ";
+		}
+		for (int i = 0; i < discarded.size(); i++)
+		{
+			
+			if (i == discarded.size() - 1)
+			{
+				cout << discarded[i] ;
+			}
+			else
+			{
+				cout << discarded[i] << ", ";
+			}
+			
+		}	
+		cout << "\n";
+		cout << "Remaining card: ";
+		for (int i = 0; i < my_dequeue.size(); i++)
+		{
+			
+			if (i == my_dequeue.size() - 1)
+			{
+				
+				cout << my_dequeue[i];
+			}
+			else
+			{
+				cout << my_dequeue[i] << ", ";
+			}
+		}
+
+
+		if (n)
+		{
+			cout << "\n";
+		}
+
+
+	}
+
+	return 0;
+}
