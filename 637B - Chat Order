@@ -1,0 +1,55 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <queue>
+#include <stack>
+#include <set>
+#include <map>
+
+
+using namespace std;
+
+#define endl '\n'
+
+int main()
+{
+
+#ifndef ONLINE_JUDGE
+	freopen("input.in", "r", stdin);
+	freopen("output.txt", "w", stdout);
+
+#endif // !ONLINE_JUDGE
+
+	std::ios_base::sync_with_stdio(0);
+	cin.tie(NULL);
+	cout.tie(NULL);
+    long long  n;
+	cin >> n;
+	stack<string> my_stack;
+	map<string, bool> my_map;
+	for (int i = 0; i < n; i++)
+	{
+		string str;
+		cin >> str;
+		my_stack.push(str);
+		my_map.insert({ str, 0 });
+
+    }
+
+	while(!my_stack.empty())
+	{
+		if (my_map[my_stack.top()] == 0)
+		{
+			cout << my_stack.top() << endl;
+			my_map[my_stack.top()] = 1;	
+			
+		}
+		my_stack.pop();
+		
+	}
+	
+
+	return 0;
+}
