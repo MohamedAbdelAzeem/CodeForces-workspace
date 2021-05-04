@@ -1,0 +1,110 @@
+
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <queue>
+#include <stack>
+#include <chrono>
+
+//#define TIME_TEST  
+using namespace std::chrono;
+using namespace std;	
+
+
+
+int main()
+{
+#ifdef TIME_TEST
+	// Get starting timepoint
+	auto start = high_resolution_clock::now();
+#endif // TIME_TEST
+
+
+
+
+#ifndef ONLINE_JUDGE
+	freopen("input.in", "r", stdin);
+	freopen("output.txt", "w", stdout);
+
+#endif // !ONLINE_JUDGE
+
+	std::ios_base::sync_with_stdio(0);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int num;
+	cin >> num;
+
+	int size; 
+	cin >> size;
+
+	vector<int> my_array(size);
+	for (int i = 0; i < size; i++)
+	{
+		cin >> my_array[i];
+	}
+
+	int left = 0;
+	int right = size - 1;
+	int mid = (left + right) / 2;
+	bool found = false;
+	while (left <= right)
+	{
+		if (my_array[mid] == num)
+		{
+			cout << "YES";
+			found = true;
+			break;
+		}
+
+		if (my_array[mid] < num) 
+		{
+			left = mid + 1 ;
+			mid = (left + right) / 2;
+		
+		}
+		else if (my_array[mid] > num)
+		{
+			right = mid - 1;
+			mid = (left + right) / 2;
+
+		}
+
+
+		for (int i = left ; i <= right; i++)
+		{
+			cout << my_array[i] << " ";
+		}
+		if (left <= right)
+		{
+			cout << endl;
+
+		}
+		
+
+	}	
+	
+	if (!found)
+	{
+		cout << "NO";
+	}
+
+
+
+
+
+#ifdef TIME_TEST
+	// Get ending timepoint
+	auto stop = high_resolution_clock::now();
+	auto duration = duration_cast<microseconds>(stop - start);
+	cout << endl;
+	cout << "Time taken "
+		<< duration.count() << " microseconds" << endl;
+#endif // TIME_TEST
+
+
+
+	return 0;
+}
