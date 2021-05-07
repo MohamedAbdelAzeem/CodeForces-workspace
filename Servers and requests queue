@@ -1,0 +1,158 @@
+/*
+Note: To solve this you might need to learn about priority queues. I did not explain them in the lab (monkey covering eyes). I had an old version of the experiment. Sorry about that.
+
+Please either watch them in Eng. Omar's videos or read about them online.
+
+This is Question 7 in the lab book: Suppose there are n requests waiting in a queue and m servers, Each server is characterized by its service time, Initially all servers are free and all n requests arrive at the same time 0, whenever a server is free, it immediately starts processing the next request standing at the top of the queue. It is required to develop a program that reads the number of servers (m) and the number of requests (n) and their service times (a number per request) as input and returns the total time required by the m servers to process all the requests and the average waiting time for these requests.
+
+Input
+The input consists of multiple lines. The first line consists of 2 numbers m( 1 ≤ m ≤ 1000 ) and n (1 ≤ n ≤ 1000). This is followed by n lines. Each line represents one request service time. (1 ≤ servicetime ≤ 1000).
+
+Output
+The output should be one line containing 2 numbers separated by a space. The first number is the total time taken to service all requests. The second number is the average waiting time.
+*/
+
+
+
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <queue>
+#include <stack>
+#include <chrono>
+#include <map>
+
+//#define TIME_TEST  
+using namespace std::chrono;
+using namespace std;	
+
+bool checkEQzero(vector<int>& vect, int size);
+
+int main()
+{
+#ifdef TIME_TEST
+	// Get starting timepoint
+	auto start = high_resolution_clock::now();
+#endif // TIME_TEST
+
+
+
+
+#ifndef ONLINE_JUDGE
+	freopen("input.in", "r", stdin);
+	freopen("output.txt", "w", stdout);
+
+#endif // !ONLINE_JUDGE
+
+	std::ios_base::sync_with_stdio(0);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int num_servers; 
+	cin >> num_servers;
+
+
+
+	int num_requests;
+	cin >> num_requests;
+
+	
+
+	queue<pair<int, int>> process_q;  //excution time , ID
+	for (int i = 0; i < num_requests; i++)
+	{
+		int x;
+		cin >> x;
+		process_q.push({ x,i });
+	}
+	vector<int> server(num_servers);
+	int total_time=  0;
+	vector<int> waiting_time(num_requests);
+
+	int time = 0;
+	bool servers_busy = true;
+	while (!process_q.empty() || servers_busy == true)
+	{
+		
+		for (int i = 0; i < num_servers; i++)
+		{
+
+			if (server[i] > 0)
+			{
+				//server is not free 
+				server[i]--;
+
+
+			}
+			if (server[i] == 0 )
+			{
+				//server is free
+				if (process_q.empty())
+				{
+					continue;
+				}
+				int x = process_q.front().first;
+				server[i]= x ;
+				int x_ID = process_q.front().second; 
+				int wait = time ;
+				if(wait == -1)
+				{
+					wait = 0;
+				}
+				waiting_time[x_ID] = wait;
+				process_q.pop();
+
+			}	 
+
+			
+		}
+		
+		time++;
+		servers_busy = checkEQzero(server, num_servers);
+	}
+	
+
+	cout << time - 1<< " " ;
+	double average_waiting = 0;
+	int sum = 0;
+	for (int i = 0; i < num_requests; i++)
+	{
+		sum += waiting_time[i];
+	}
+	average_waiting = sum * 1.0 / num_requests;
+	cout << average_waiting;
+	
+
+
+
+
+
+
+#ifdef TIME_TEST
+	// Get ending timepoint
+	auto stop = high_resolution_clock::now();
+	auto duration = duration_cast<microseconds>(stop - start);
+	cout << endl;
+	cout << "Time taken "
+		<< duration.count() << " microseconds" << endl;
+#endif // TIME_TEST
+
+
+
+	return 0;
+}
+
+
+bool checkEQzero(vector<int>& vect, int size )
+{
+	for (int i = 0; i < size; i++)
+	{
+		if (vect[i] != 0)
+		{
+			return true ;
+		}
+	}
+	return false; //all equal zero ->free
+}
