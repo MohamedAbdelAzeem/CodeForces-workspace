@@ -1,0 +1,113 @@
+//problem link:
+// https://codeforces.com/problemset/problem/702/B
+
+
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <queue>
+#include <stack>
+#include <chrono>
+#include <map>
+#include <unordered_map>
+#include <math.h>
+typedef long long int ll;
+//#define TIME_TEST  
+using namespace std::chrono;
+using namespace std;
+
+
+
+void CopyStackToStack(stack<int>& stackx, stack<int>& stacky)
+{
+	//optianl empty stack y
+	//copy stackx into stacky
+	while(!stackx.empty())
+	{
+		stacky.push(stackx.top());
+		//empty stack2
+		stackx.pop();
+
+	}
+}
+
+void clearStack(stack<int>& stackx)
+{
+	for (int i = 0; i < stackx.size(); i++)
+	{
+		stackx.pop();
+
+	}
+}
+
+
+
+int main()
+{
+#ifdef TIME_TEST
+	// Get starting timepoint
+	auto start = high_resolution_clock::now();
+#endif // TIME_TEST
+
+
+#ifndef ONLINE_JUDGE
+	freopen("input.in", "r", stdin);
+	freopen("output.txt", "w", stdout);
+
+#endif // !ONLINE_JUDGE
+
+	std::ios_base::sync_with_stdio(0);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	 ll n;
+	cin >> n;
+	vector<ll> vect;
+	map<ll, ll> my_map;
+	
+	for (ll i = 0; i < n; i++)
+	{
+		ll x;
+		cin >> x;
+		vect.push_back(x);
+		my_map[x]++;
+	}
+
+	ll counter = 0;
+	for (ll i = 0; i < n; i++)
+	{
+		for (int j = 0; j < 32; j++)
+		{
+			if (my_map[pow(2, j) - vect[i]] > 0 )
+			{
+				if(pow(2, j) - vect[i] == vect[i])
+				{
+					counter += my_map[pow(2, j) - vect[i]] - 1;
+				}
+				else
+				{
+					counter += my_map[pow(2, j) - vect[i]];
+				}
+
+				
+			}
+		}
+	}
+	cout << counter / 2;
+
+#ifdef TIME_TEST
+	// Get ending timepoint
+	auto stop = high_resolution_clock::now();
+	auto duration = duration_cast<microseconds>(stop - start);
+	cout << endl;
+	cout << "Time taken "
+		<< duration.count() << " microseconds" << endl;
+#endif // TIME_TEST
+
+
+
+	return 0;
+}
+
