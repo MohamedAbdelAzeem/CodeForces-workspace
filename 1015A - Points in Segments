@@ -1,0 +1,118 @@
+//problem link:
+//https://codeforces.com/problemset/problem/1015/A
+
+
+
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <queue>
+#include <stack>
+#include <chrono>
+#include <map>
+#include <unordered_map>
+
+//#define TIME_TEST  
+using namespace std::chrono;
+using namespace std;
+
+
+
+void CopyStackToStack(stack<int>& stackx, stack<int>& stacky)
+{
+	//optianl empty stack y
+	//copy stackx into stacky
+	while(!stackx.empty())
+	{
+		stacky.push(stackx.top());
+		//empty stack2
+		stackx.pop();
+
+	}
+}
+
+void clearStack(stack<int>& stackx)
+{
+	for (int i = 0; i < stackx.size(); i++)
+	{
+		stackx.pop();
+
+	}
+}
+
+
+
+int main()
+{
+#ifdef TIME_TEST
+	// Get starting timepoint
+	auto start = high_resolution_clock::now();
+#endif // TIME_TEST
+
+
+#ifndef ONLINE_JUDGE
+	freopen("input.in", "r", stdin);
+	freopen("output.txt", "w", stdout);
+
+#endif // !ONLINE_JUDGE
+
+	std::ios_base::sync_with_stdio(0);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int n;
+	cin >> n;
+	stack<int> stack1;
+	stack<int> stack2;
+	while (n--)
+	{
+
+		int x;
+		cin >> x;
+		int num = 0;
+		switch(x)
+		{
+			case 1: 
+				cin >> num;
+				stack1.push(num);
+			
+				break;
+
+			case 2:
+			case 3:
+				//copy stack 1 into stack 2 and empty stack 2
+				if (stack2.empty())
+				{
+					CopyStackToStack(stack1, stack2);
+				}
+
+				if(!stack2.empty())
+				{
+					//dequeue 
+					if (x == 2)  stack2.pop();
+					if (x == 3)	cout << stack2.top() << endl;
+				}
+
+				
+		
+
+		}
+
+	}
+
+#ifdef TIME_TEST
+	// Get ending timepoint
+	auto stop = high_resolution_clock::now();
+	auto duration = duration_cast<microseconds>(stop - start);
+	cout << endl;
+	cout << "Time taken "
+		<< duration.count() << " microseconds" << endl;
+#endif // TIME_TEST
+
+
+
+	return 0;
+}
+
